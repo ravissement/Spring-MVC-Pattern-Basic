@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.board.domain.ReplyVO;
 import com.board.service.ReplyService;
@@ -25,4 +26,23 @@ public class ReplyController {
 		
 		return "redirect:/board/view?bno=" + vo.getBno();
 	}
+	
+	//댓글 삭제
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String getDelete(ReplyVO vo) throws Exception {
+		
+		replyService.delete(vo);
+		
+		return "redirect:/board/view?bno=" + vo.getBno();
+	}
+	
+	//댓글 수정
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String getModify(ReplyVO vo) throws Exception {
+		
+		replyService.modify(vo);
+		
+		return "redirect:/board/view?bno=" + vo.getBno();
+	}
+	
 }

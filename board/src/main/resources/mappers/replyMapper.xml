@@ -23,7 +23,8 @@
 <update id="replyModify" parameterType="com.board.domain.ReplyVO">
     update board.tbl_reply set
         writer = #{writer},
-        content = #{content}
+        content = #{content},
+        regDate = SYSDATE()
     where rno = #{rno}
         and bno = #{bno}    
 </update>
