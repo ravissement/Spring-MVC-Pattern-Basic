@@ -20,7 +20,8 @@ COMMIT;
 	private String title;
 	private String content;
 	private String writer;
-	
+	private Date regDate;
+	private int viewCnt;
 	
 	public int getBno() {
 		return bno;
@@ -58,6 +59,5 @@ COMMIT;
 	public void setViewCnt(int viewCnt) {
 		this.viewCnt = viewCnt;
 	}
-	private Date regDate;
-	private int viewCnt;
+	
 }

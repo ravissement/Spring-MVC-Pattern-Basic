@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mappers.user">
+	
+
+	<!--회원가입 -->
+	<insert id="join" parameterType="com.board.domain.UserVO">
+		INSERT INTO 
+			board.tbl_user(user_id, user_pw, user_name, user_phone, user_email)
+		VALUES 
+			('${user_id}',  SHA2('${user_pw}', 512), '${user_name}', HEX(AES_ENCRYPT('${user_phone}', 'p')), HEX(AES_ENCRYPT('${user_email}', 'e')) )
+	</insert>  
+	
+	
+	
+	<!--로그인 -->
+	<select id="login" resultType="com.board.domain.UserVO">
+		SELECT uno, user_name 
+		FROM board.tbl_user 
+		WHERE user_id = '${user_id}'
+	</select>
+	
+	
+	
+	
+	
+	
+</mapper>

@@ -36,19 +36,19 @@ public class BoardController {
 		list = service.list();
 		
 		model.addAttribute("list", list);
-	   
+		model.addAttribute("nav", "list");
 	}
 	
 	//게시물 작성
 	@RequestMapping(value ="/write", method = RequestMethod.GET)
-	public void getWrite() throws Exception {
-		
+	public void getWrite(Model model) throws Exception {
+		model.addAttribute("nav", "write");
 	}
 	
 	@RequestMapping(value="/write", method = RequestMethod.POST)
-	public String postWrite(BoardVO vo) throws Exception {
+	public String postWrite(BoardVO vo, Model model) throws Exception {
 		service.write(vo);
-		
+		model.addAttribute("nav", "list");
 		return "redirect:/board/list";
 	}
 	
@@ -70,16 +70,15 @@ public class BoardController {
 	public void getModify(@RequestParam("bno") int bno, Model model) throws Exception {
 		
 		BoardVO vo = service.view(bno);
-		
+		model.addAttribute("nav", "write");
 		model.addAttribute("view", vo);
 	}
 	
 	//게시물 수정
 	@RequestMapping(value="/modify", method = RequestMethod.POST)
-	public String postModify(BoardVO vo) throws Exception {
+	public String postModify(BoardVO vo, Model model) throws Exception {
 		
 		service.modify(vo);
-		
 		return "redirect:/board/view?bno="+ vo.getBno();
 	}
 	
@@ -161,6 +160,7 @@ public class BoardController {
 
 		model.addAttribute("select", num);
 		model.addAttribute("page", page);
+		model.addAttribute("nav", "listPage");
 	}
 	
 	//게시물 목록 + 페이징 처리 + 검색
@@ -188,6 +188,7 @@ public class BoardController {
 		model.addAttribute("list", list);
 		model.addAttribute("page", page);
 		model.addAttribute("select", num);
+		model.addAttribute("nav", "listPageSearch");
 		
 	}
 }
