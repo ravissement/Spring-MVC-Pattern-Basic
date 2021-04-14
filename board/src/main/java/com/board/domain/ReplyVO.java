@@ -11,7 +11,7 @@ public class ReplyVO {
 	content	TEXT			NOT NULL,
 	regDate	TIMESTAMP	NOT NULL DEFAULT NOW(),
 	PRIMARY KEY(rno, bno),
-	FOREIGN KEY(bno) REFERENCES tbl_board(bno)
+	FOREIGN KEY(bno) REFERENCES tbl_board(bno) ON UPDATE CASCADE ON DELETE CASCADE 
 	); 
 	*/
 	

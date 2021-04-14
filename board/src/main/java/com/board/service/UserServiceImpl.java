@@ -22,4 +22,9 @@ public class UserServiceImpl implements UserService {
 		return dao.login(vo);
 	}
 
+	@Override
+	public int idCheck(String id) throws Exception {
+		return dao.idCheck(id);
+	}
+
 }

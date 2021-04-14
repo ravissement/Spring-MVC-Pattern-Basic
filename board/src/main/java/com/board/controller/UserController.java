@@ -1,16 +1,15 @@
 package com.board.controller;
 
-import java.io.Console;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.board.domain.UserVO;
 import com.board.service.UserService;
@@ -34,7 +33,7 @@ public class UserController {
 	public String getJoin(UserVO vo, Model model) throws Exception {
 		
 		service.join(vo);
-		model.addAttribute("userName", vo.getUser_name());
+		model.addAttribute("userJoinName", vo.getUser_name());
 		
 		return "home";
 	}
@@ -49,13 +48,14 @@ public class UserController {
 	
 	//로그인
 	@RequestMapping(value = "/goLogin", method = RequestMethod.POST)
-	public String getLogin(UserVO vo, HttpServletRequest req) throws Exception {
+	public String getLogin(UserVO vo, HttpServletRequest req, Model model) throws Exception {
 		
 		HttpSession session = req.getSession();
 		UserVO login = service.login(vo);
 		String url = "";
 		if(login == null) {
 			session.setAttribute("member", null);
+			model.addAttribute("loginResult", "X");
 			url = "/user/login";
 		} else {
 			session.setAttribute("member", login);
@@ -75,6 +75,20 @@ public class UserController {
 		return "home";
 	}
 	
+	//아이디 중복 체크
+	@ResponseBody
+	@RequestMapping(value ="/idCheck", method = RequestMethod.POST)
+	public String getIdCheck(String user_id) throws Exception {
+		int result = service.idCheck(user_id); 
+		
+		if (result == 0) {
+			return "Y";
+		}else {
+			return "N";
+		}
+		
+		
+	}
 	
 		
 }

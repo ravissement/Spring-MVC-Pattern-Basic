@@ -10,5 +10,8 @@ public interface UserDAO {
 		
 	//로그인 
 	public UserVO login(UserVO vo) throws Exception;
+	
+	//중복아이디 체크
+	public int idCheck(String id) throws Exception;
 
 }

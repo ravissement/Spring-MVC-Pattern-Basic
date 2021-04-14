@@ -27,4 +27,9 @@ public class UserDAOImpl implements UserDAO {
 		return sql.selectOne(namespace + ".login", vo);
 	}
 
+	@Override
+	public int idCheck(String id) throws Exception {
+		return sql.selectOne(namespace + ".idCheck", id);
+	}
+
 }

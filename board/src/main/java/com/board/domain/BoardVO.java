@@ -16,6 +16,7 @@ CREATE TABLE tbl_board(
 COMMIT;  
  
 */
+	private int cnt;
 	private int bno;
 	private String title;
 	private String content;
@@ -58,6 +59,12 @@ COMMIT;
 	}
 	public void setViewCnt(int viewCnt) {
 		this.viewCnt = viewCnt;
+	}
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 	
 }

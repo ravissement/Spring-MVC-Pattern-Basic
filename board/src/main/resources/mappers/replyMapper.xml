@@ -33,7 +33,7 @@
 <delete id="replyDelete" parameterType="com.board.domain.ReplyVO">
     delete from board.tbl_reply
     where rno = #{rno}
-        and bno = ${bno}    
+        and bno = #{bno}    
 </delete>
 
 

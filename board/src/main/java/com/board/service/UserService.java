@@ -11,4 +11,7 @@ public interface UserService {
 	//로그인
 	public UserVO login(UserVO vo) throws Exception;
 	
+	//로그인
+	public int idCheck(String id) throws Exception;
+	
 }

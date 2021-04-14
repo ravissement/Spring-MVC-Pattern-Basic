@@ -2,7 +2,7 @@
 
 <style>
 .onClass {
-	background-color: #E6E6E6;
+	background-color: #ebe9e9;
 }
 
 </style>
@@ -30,7 +30,13 @@
 	 </li> 
 	</ul>
 </nav>
-<h3 class="text-muted"><a href="/"> HOME </a></h3>	
+<h3 class="text-muted"><a href="/"> HOME </a></h3>
+<div class="jumbotron">
+	<h2>Safari exhibits a bug</h2>
+	<p>As of v8.0, Safari exhibits a bug in which resizing your browser horizontally causes rendering errors in the justified nav that are cleared upon refreshing.</p>
+  		<p>Donec id elit non mi porta gravida at eget metus.</p>
+</div>
+	
 <!--<c:remove var="string1" />
 <c:remove var="length1" />
 <c:remove var="chkString" />-->

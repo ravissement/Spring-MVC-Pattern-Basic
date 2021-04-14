@@ -18,8 +18,10 @@
 	<div class="jumbotron">
 		<h1>It is being tested.</h1>
 		<p>Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
-		<c:if test="${member != null}">
-			<p class="lead">${member.user_name}님 환영 합니다.</p>
+		<c:if test="${userJoinName != null}">
+			<script>
+				alert("가입을 축하드립니다.")
+			</script>
 		</c:if>
 	</div>
 
@@ -95,6 +97,8 @@ $(function(){
 		keyboard : true
 	});
 });
+
+
 </script>
  <%@ include file="include/footer.jsp" %>
 </div>

@@ -7,6 +7,7 @@
 <nav>
 	<ul class="nav nav-pills pull-right">
 		<c:if test="${member != null }">
+			<li role="presentation"><a href="return;">This is ${member.user_name}</a></li>
 			<li role="presentation"><a href="/user/logout">logOut</a></li>
 		</c:if>
 		<c:if test="${member == null}">

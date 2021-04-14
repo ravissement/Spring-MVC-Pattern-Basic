@@ -1,6 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,51 +14,72 @@
 <title>게시물 조회</title>
 </head>
 <body>
-	<label>제목</label>
-	${view.title}<br />
-	
-	<label>작성자</label>
-	${view.writer}<br />
-	
-	<label>내용</label>
-	${view.content}<br />
-	
-	
-	<div>
-		<a href="/board/modify?bno=${view.bno}">게시물 수정</a>
-		<a href="/board/delete?bno=${view.bno}">게시물 삭제</a>
+<style>
+.tableComment {
+	border-right:none;
+	border-left:none;
+	border-top:none;
+	border-bottom:none;
+}
+.tableComment tr {
+	height:4em;
+}
+</style>
+
+<div class="container">
+	<div class="header">
+	 <%@ include file="../include/nav.jsp" %>
 	</div>
+	
+	<table class="table"> 
+	<tr>
+		<th style="width:10%;">제목</th>
+		<td>${view.title}</td>
+		<th style="width:10%;">작성자</th>
+		<td style="width:10%;">${view.writer}</td>
+	</tr>
+	<tr>
+		<th>내용</th>
+		<td colspan="3">${view.content}</td>
+	</tr>
+	</table>
+	
+	<div style="text-align:right;">
+		<a href="/board/modify?bno=${view.bno}">게시물 수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/board/delete?bno=${view.bno}" onclick="return confirm('Are you sure?')">게시물 삭제</a>
+	</div>
+
 	<!-- <button type="submit">작성</button> -->
 	<!-- 댓글 시작 -->
 	<hr/>
-	
 	<c:forEach items="${reply}" var="reply" varStatus="status">
-		<li id="replyBoard${reply.rno}">
+		<li id="replyBoard${reply.rno}" style="list-style:none;">
 			<div>
-				<p>${reply.writer} / <fmt:formatDate value="${reply.regDate}" pattern="yyyy-MM-dd"/></p>
+				<p style="font-weight:bold;">${reply.writer} / <fmt:formatDate value="${reply.regDate}" pattern="yyyy-MM-dd"/></p>
 				<p>${reply.content}</p>
 			</div>		
-			<a href="/reply/delete?bno=${view.bno}&rno=${reply.rno}">삭제</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="/reply/delete?bno=${view.bno}&rno=${reply.rno}" onclick="return confirm('Are you sure?')">삭제</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="#" onclick="checkModify(${view.bno}, ${reply.rno}, '${reply.writer}', '${reply.content}')">댓글 수정</a>
 		</li>
+		<br />
 	</c:forEach>
-	<div>
+	<hr/>
 		<form name="rform" method="post" action="/reply/write">
 			<input type="hidden" name="bno" value="${view.bno}">
-			<p>
-				<label>댓글 작성자</label> 
-				<input type="text" name="writer" />
-			</p>
-			<p>
-				<textarea rows="5" cols="50" name="content"></textarea>
-			</p>
-			<p>
-				<a href="#" id="submitBtn">댓글 작성</a> 
-			</p>
+			<table class="tableComment" style="width:95%;">
+			<tr>
+				<th style="width:7%;">작성자</th> 
+				<td style="width:15%;"><input type="text" name="writer" id="rwriter" class="form-control" /></td>
+				<td style="text-align:right;"><a href="#" id="submitBtn">댓글 작성</a></td>
+			</tr>
+			<tr>
+				<td colspan="3"><textarea rows="5" cols="50" name="content" id="rcontent" class="form-control"></textarea></td>
+			</tr>
+			</table>
 		</form>
-	</div>	
 	<!-- 댓글 끝 -->
-
+	<%@ include file="../include/footer.jsp" %>
+</div>
 <script>
 
 function checkModify(bno, rno, writer, content) {
@@ -62,8 +89,8 @@ function checkModify(bno, rno, writer, content) {
 	stringTags = "<form name='mform' method='post' action='/reply/modify'>";
 	//stringTsgs += "<input type='hidden' name='bno' value='"+bno+"' />";
 	//stringTsgs += "<input type='text' name='rno' value='"+rno+"' />";
-	stringTags += "<div><p><input type='text' name='writer' value='"+writer+"'/> <input type='hidden' name='bno' value='"+bno+"' /> </p>";
-	stringTags += "<p><input type='text' name='content' value='"+content+"'/> <input type='hidden' name='rno' value='"+rno+"' />  </p>";
+	stringTags += "<div style='width:50%;'><p><input type='text' name='writer' id='mwriter' class='form-control' value='"+writer+"' style='width:30%;'/> <input type='hidden' name='bno' value='"+bno+"' /> </p>";
+	stringTags += "<p><textarea name='content' id='mcontent' class='form-control'>"+content+"</textarea> <input type='hidden' name='rno' value='"+rno+"' />  </p>";
 	stringTags += "<a href='#' onclick='window.location.reload();'>취소</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 	stringTags += "<a href='#' onclick='modify();'>확인</a>";
 	stringTags += "</div>";
@@ -74,6 +101,19 @@ function checkModify(bno, rno, writer, content) {
 
 
 document.getElementById("submitBtn").onclick = function () {
+	
+	if (!$('#rwriter').val()){
+		alert("작성자를 입력해주세요.");
+		$('#rwriter').focus();
+		return false;
+	}
+
+	if (!$('#rcontent').val()){
+		alert("내용을 입력해주세요.");
+		$('#rcontent').focus();
+		return false;
+	}
+	
 	var myform = document.forms["rform"];
 	myform.action = "/reply/write";
 	myform.submit();
@@ -87,6 +127,19 @@ document.getElementById("submitBtn").onclick = function () {
 //};
 
 function modify() {
+	
+	if (!$('#mwriter').val()){
+		alert("작성자를 입력해주세요.");
+		$('#mwriter').focus();
+		return false;
+	}
+
+	if (!$('#mcontent').val()){
+		alert("내용을 입력해주세요.");
+		$('#mcontent').focus();
+		return false;
+	}
+	
 	var myform2 = document.forms["mform"];
 	myform2.action = "/reply/modify";
 	myform2.submit();
