@@ -11,4 +11,4 @@ spring MVC 패턴을 익히기 위한 기본형 게시판 소스입니다.
 - 게시판 리스트 페이징 처리 및 키워드 검색 기능
 - 개인정보 암호화 처리: SHA2(비밀번호), AES(phone, email)
 - 로그인 이후 세션처리
-
+- 기본 SQL-Inject 방지를 위한 PreparedStatement(#{}) 사용
