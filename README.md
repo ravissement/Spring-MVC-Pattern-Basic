@@ -13,3 +13,8 @@ spring MVC 패턴을 익히기 위한 기본형 게시판 소스입니다.
 - 기본 SQL-Injection 방지를 위한 PreparedStatement(#{}) 사용
 - Bootstrap CSS 템플릿 적용
 
+# Environment
+Spring Framework-version : 4.3.8 RELEASE <br>
+Tomcat : 8.5 <br>
+JAVA : openJDK 11 <br>
+DB : MariaDB <br>
